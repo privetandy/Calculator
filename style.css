@@ -1,0 +1,106 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+/*Меняет рассчет, теперь все входит в общий размер блока*/
+*,*:before,*:after{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 100%;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+input,button,textarea{font-family: inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner{padding: 0;border: 0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400;}
+
+#container{
+    width: 142px;
+    height: 220px;
+    background-color: aqua;
+    padding: 10px;
+    margin:auto;
+    margin-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 3px;
+    border: 1px solid;
+    
+    
+}
+
+#tablo{
+    width: 110px;
+    height: 40px;
+    background-color: aliceblue;
+    margin: 5px;
+    border: 1px solid;
+    border-color: black;
+    box-shadow: black 0.1em 0.1em 0.1em;
+    overflow: hidden;
+    
+}
+
+p {
+    float: right;
+    min-width: 110px;
+}
+
+
+
+#null{
+    width: 55px;
+}
+
+.buttons{
+    width: 25px;
+    height: 25px;
+    background-color: bisque;
+    border: 1px solid;
+    border-radius: 25px;
+    margin: 2.5px;
+    box-shadow: black 0.1em 0.1em 0.1em
+}
+
+.buttons:hover {
+    background-color: rgb(255, 205, 196);
+}
+.buttons:active {
+    box-shadow: black 0em 0em 0em
+}
+
+.calculation{
+text-align: right;
+font-size: 8px;
+padding-right: 3px;
+}
+
+.answer{
+    text-align: right;
+    font-size: 18px;
+    padding-right: 3px;
+
+}
