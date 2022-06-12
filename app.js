@@ -6,8 +6,6 @@ let a = '';
 let b = '';
 let sign ='';
 let calculation = '';
-const acomma = a.split('');
-const bcomma = b.split('');
 
 const Clean = () => {
 a = '';
@@ -16,12 +14,13 @@ sign = '';
 $answer.innerText = 0;
 $calculation.innerText = 0;
 calculation = '';
-}
+};
 
 const doCalculation = (sign) => {
     switch (sign) {
-        case '/':
-            if(b === '0') {a = 'Ошибка'} else {
+            case '/':
+            if(b === '0') {a = 'Ошибка'; 
+            b = ''; } else {
              a = (+a) / (+b);
             b = '';}
             break;
@@ -37,13 +36,15 @@ const doCalculation = (sign) => {
             a = (+a) + (+b);
             b = '';
             break;
-    } 
+       }; 
 };
 
 
-const doComma = (event) => {
-if ((!a.toString().split('').includes('.')) && sign === ''){ a = $answer.innerText + '.';
-$answer.innerText = a} else if(!(b.toString().split('').includes('.')) && sign !== ''){switch (b) {
+const doComma = ( ) => {
+if ((!a.toString().split('').includes('.')) && sign === '') { a = $answer.innerText + '.';
+$answer.innerText = a;
+calculation = a;
+$calculation.innerText = a;} else if(!(b.toString().split('').includes('.')) && sign !== ''){switch (b) {
     case '':
     b = 0 +'.';
     $answer.innerText = b;
@@ -52,68 +53,217 @@ $answer.innerText = a} else if(!(b.toString().split('').includes('.')) && sign !
      b = $answer.innerText +'.';
      $answer.innerText = b; 
      break;
-}} 
-
+}}; 
 };
+
 
 const doTextSize = () => {
 if ($answer.innerText.length >= 14){
     $answer.style.fontSize = '10px';
-} else {$answer.style.fontSize = '16px';}
+} else {$answer.style.fontSize = '18px';}
 };
+
+
+const keyDown = (event) =>{
+    if (sign === '') {a += event.key;
+        $answer.innerText = a;
+        $calculation.innerText = a;
+        doTextSize();
+        } else {
+        b += event.key;
+        $answer.innerText = b;
+        doTextSize();}
+};
+
+const doKeyActive = (cl) => {
+    $keyDown = document.querySelector(cl);
+    $keyDown.classList.add('active');
+    setTimeout(() => $keyDown.classList.remove('active'), 100);
+    };
+    
 
 $container.addEventListener('click',  event => {
     if (event.target.classList.contains('reset')){
         Clean();
         doTextSize();
     } else if (event.target.classList.contains('negative')){
-     if (sign === '' && a !== '') {a = -a;
+     if (sign === '' && a === '') {a = '-';
      $answer.innerText = a;
-     doTextSize();} else {b = -b;
+     doTextSize();   
+    $calculation.innerText = a;} else if (sign === '' && a !== '') {a = '-' + a;
+    $answer.innerText = a;
+    doTextSize();   
+   $calculation.innerText = a;} else {b = '-' + b;
         $answer.innerText = b;
         doTextSize();}
     } else if (event.target.classList.contains('comma')) {
-        doComma(event.target);
-        console.log(b.split(''))
+        doComma();
         }     else if (event.target.classList.contains('numbers')) {
         if (sign === '') {a += event.target.innerText;
         $answer.innerText = a;
         doTextSize();
+        $calculation.innerText = a;    
         } else {
         b += event.target.innerText;
         $answer.innerText = b;
-        doTextSize();}
-        
+        doTextSize();
+        }      
     } else if (event.target.classList.contains('sign')){
         if (sign === '' && a !== '') {sign = event.target.innerText;
+        $calculation.innerText = a + sign;           
         } else if (sign !==''&& b !== '') {doCalculation(sign);
     $answer.innerText = a;
     doTextSize();
     sign = event.target.innerText;
-        }
-        
+    $calculation.innerText = a + sign;  
+      } 
     } else if (event.target.classList.contains('percent')) {
         if(a !== '' && b !== '') {doCalculation(sign);
             sign = '';
             a = a / 100;
             $answer.innerText =  (Math.floor(a * 1000) / 1000 );
             doTextSize();
+            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
             } else {
             a = a / 100;
             $answer.innerText =  (Math.floor(a * 1000) / 1000 );
             doTextSize();
+            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
             }
     } else if (event.target.classList.contains('equally')) {
         if(a !== '' && b !== '') {doCalculation(sign);
         sign = '';
-        if (a === 'Ошибка') {$answer.innerText = a} else {
-            $answer.innerText =  (Math.floor(a * 1000) / 1000 );
+        if (a === 'Ошибка') {$answer.innerText = a; $calculation.innerText = a;} else {
+            $answer.innerText = (Math.floor(a * 1000) / 1000 );
             doTextSize();
+            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
         }
-        
-        }}
-        
-})
+        } else if ( a !=='' && sign !== ''){$calculation.innerText = a; 
+            sign ='';}}      
+});
 
 
- 
+document.onkeydown = function(event) {
+    console.log(a);
+    console.log(b);
+    console.log(sign);
+    console.log($answer.innerText)
+    switch(event.key) {
+            case '1':
+            keyDown(event);
+            doKeyActive('.one');
+            break;
+            case '2':
+            keyDown(event);
+            doKeyActive('.two');
+            break;
+            case '3':
+            keyDown(event);
+            doKeyActive('.three');
+            break;
+            case '4':
+            keyDown(event);
+            doKeyActive('.four');
+            break;
+            case '5':
+            keyDown(event);
+            doKeyActive('.five');
+            break;
+            case '6':
+            keyDown(event);
+            doKeyActive('.six');
+            break;
+            case '7':
+            keyDown(event);
+            doKeyActive('.seven');
+            break;
+            case '8':
+            keyDown(event);
+            doKeyActive('.eight');
+            break;
+            case '9':
+            keyDown(event);
+            doKeyActive('.nine');
+            break;
+            case '0':
+            keyDown(event);
+            doKeyActive('.null');
+            break;
+            case '.':
+            doComma();
+            doKeyActive('.comma');
+            break;
+            case ',':
+            doComma();
+            doKeyActive('.comma');
+            break;
+            case 'Enter':
+                doCalculation(sign);
+                sign = '';
+                $answer.innerText = (Math.floor(a * 1000) / 1000 );
+            doTextSize();
+            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
+            doKeyActive('.equally');
+                  
+            break;
+            case 'Delete':
+            Clean();
+            doTextSize();
+            doKeyActive('.reset');
+            break;
+            case 'Escape':
+            Clean();
+            doTextSize();
+            doKeyActive('.reset');
+            break;
+            case 'Backspace':
+            Clean();
+            doTextSize();
+            doKeyActive('.reset');
+            break;
+            case '/':
+                if (sign === '' && a !== '') {sign = event.key;
+                    $calculation.innerText = a + sign;
+                } else if (sign !==''&& b !== '') {doCalculation(sign);
+            $answer.innerText = a;
+            doTextSize();
+            sign = event.key;
+            $calculation.innerText = a + sign;
+                };
+                doKeyActive('.divide');
+            break;
+            case '*':
+                if (sign === '' && a !== '') {sign = event.key;
+                    $calculation.innerText = a + sign;
+                } else if (sign !==''&& b !== '') {doCalculation(sign);
+            $answer.innerText = a;
+            doTextSize();
+            sign = event.key;
+            $calculation.innerText = a + sign;
+                };
+                doKeyActive('.multiply');
+            break;
+            case '-':
+                if (sign === '' && a !== '') {sign = event.key;
+                    $calculation.innerText = a + sign;
+                } else if (sign !==''&& b !== '') {doCalculation(sign);
+            $answer.innerText = a;
+            doTextSize();
+            sign = event.key;
+            $calculation.innerText = a + sign;
+                };
+                doKeyActive('.minus');
+            break;
+            case '+':
+                if (sign === '' && a !== '') {sign = event.key;
+                    $calculation.innerText = a + sign;
+                } else if (sign !==''&& b !== '') {doCalculation(sign);
+            $answer.innerText = a;
+            doTextSize();
+            sign = event.key;
+            $calculation.innerText = a + sign;
+                };
+            doKeyActive('.plus');
+            break;         
+    };
+};
