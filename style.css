@@ -92,6 +92,12 @@ p {
     box-shadow: black 0em 0em 0em
 }
 
+.active {
+    box-shadow: black 0em 0em 0em;
+    background-color: rgb(255, 205, 196);
+
+}
+
 .calculation{
 text-align: right;
 font-size: 8px;
