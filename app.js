@@ -78,19 +78,27 @@ const keyDown = (event) =>{
 const doKeyActive = (cl) => {
     $keyDown = document.querySelector(cl);
     $keyDown.classList.add('active');
-    setTimeout(() => $keyDown.classList.remove('active'), 100);
+    setTimeout(() => $keyDown.classList.remove('active'), 50);
     };
     
 
-$container.addEventListener('click',  event => {
+$container.addEventListener('click', event => {
     if (event.target.classList.contains('reset')){
         Clean();
         doTextSize();
     } else if (event.target.classList.contains('negative')){
-     if (sign === '' && a === '') {a = '-';
+     if (a[0] === '-' && sign === '') {a = a.substring(1);
+     $answer.innerText = a;
+     $calculation.innerText = a;
+     doTextSize();
+    } else if (b[0] === '-') { b = b.substring(1);
+        $answer.innerText = b;
+        doTextSize();
+}  else if (sign === '' && a === '') {a = '-';
      $answer.innerText = a;
      doTextSize();   
-    $calculation.innerText = a;} else if (sign === '' && a !== '') {a = '-' + a;
+    $calculation.innerText = a;
+} else if (sign === '' && a !== '') {a = '-' + a;
     $answer.innerText = a;
     doTextSize();   
    $calculation.innerText = a;} else {b = '-' + b;
@@ -121,33 +129,39 @@ $container.addEventListener('click',  event => {
         if(a !== '' && b !== '') {doCalculation(sign);
             sign = '';
             a = a / 100;
-            $answer.innerText =  (Math.floor(a * 1000) / 1000 );
+            a = (Math.floor(a * 1000) / 1000 ).toString();
+            $answer.innerText =  a;
             doTextSize();
-            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
+            $calculation.innerText = a;
             } else {
-            a = a / 100;
-            $answer.innerText =  (Math.floor(a * 1000) / 1000 );
+            a = (+a) / 100;
+            a = (Math.floor(a * 1000) / 1000 ).toString();
+            $answer.innerText =  a;
             doTextSize();
-            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
+            $calculation.innerText = a;
             }
     } else if (event.target.classList.contains('equally')) {
         if(a !== '' && b !== '') {doCalculation(sign);
         sign = '';
-        if (a === 'Ошибка') {$answer.innerText = a; $calculation.innerText = a;} else {
-            $answer.innerText = (Math.floor(a * 1000) / 1000 );
+        if (a === 'Ошибка') {$answer.innerText = a;
+             $calculation.innerText = a;} else {
+            a = (Math.floor(a * 1000) / 1000 ).toString();
+            $answer.innerText = a;
             doTextSize();
-            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
+            $calculation.innerText = a;
         }
         } else if ( a !=='' && sign !== ''){$calculation.innerText = a; 
-            sign ='';}}      
+            sign ='';}}
+                 
 });
 
 
 document.onkeydown = function(event) {
-    console.log(a);
-    console.log(b);
-    console.log(sign);
-    console.log($answer.innerText)
+    
+    
+   
+    event.preventDefault();
+    
     switch(event.key) {
             case '1':
             keyDown(event);
@@ -185,8 +199,11 @@ document.onkeydown = function(event) {
             keyDown(event);
             doKeyActive('.nine');
             break;
-            case '0':
+            case '0': if( (a[1] === '.' && b === '')|| (a[0] !== '0' && b === '')){
             keyDown(event);
+            } else if ( (b[1] === '.') || (b === '' && sign !== '')) {
+                keyDown(event);  
+                }
             doKeyActive('.null');
             break;
             case '.':
@@ -198,11 +215,15 @@ document.onkeydown = function(event) {
             doKeyActive('.comma');
             break;
             case 'Enter':
-                doCalculation(sign);
-                sign = '';
-                $answer.innerText = (Math.floor(a * 1000) / 1000 );
-            doTextSize();
-            $calculation.innerText = (Math.floor(a * 1000) / 1000 );
+                if(a !== '' && b !== '') {doCalculation(sign);
+                    sign = '';
+                    if (a === 'Ошибка') {$answer.innerText = a; $calculation.innerText = a;} else {
+                        $answer.innerText = (Math.floor(a * 1000) / 1000 );
+                        doTextSize();
+                        $calculation.innerText = (Math.floor(a * 1000) / 1000 );
+                    }
+                    } else if ( a !=='' && sign !== ''){$calculation.innerText = a; 
+                        sign ='';}
             doKeyActive('.equally');
                   
             break;
