@@ -106,7 +106,18 @@ $container.addEventListener('click', event => {
         doTextSize();}
     } else if (event.target.classList.contains('comma')) {
         doComma();
-        }     else if (event.target.classList.contains('numbers')) {
+        }   else if(event.target.classList.contains('null')) {
+            if( (a[1] === '.' && b === '' && sign === '')|| (a[0] !== '0' && b === '' && sign === '')){
+                a += event.target.innerText;
+        $answer.innerText = a;
+        doTextSize();
+        $calculation.innerText = a; 
+                } else if ( (b[1] === '.') || (b[0] !== '0' && sign !== '')) {
+                    b += event.target.innerText;
+        $answer.innerText = b;
+        doTextSize();  
+                    }
+        }  else if (event.target.classList.contains('numbers')) {
         if (sign === '') {a += event.target.innerText;
         $answer.innerText = a;
         doTextSize();
@@ -118,7 +129,10 @@ $container.addEventListener('click', event => {
         }      
     } else if (event.target.classList.contains('sign')){
         if (sign === '' && a !== '') {sign = event.target.innerText;
-        $calculation.innerText = a + sign;           
+            if (a[a.length-1] === '.') {
+                $calculation.innerText = a.substring(0, a.length-1) + sign;
+            } else {
+        $calculation.innerText = a + sign;}           
         } else if (sign !==''&& b !== '') {doCalculation(sign);
     $answer.innerText = a;
     doTextSize();
@@ -201,7 +215,7 @@ document.onkeydown = function(event) {
             break;
             case '0': if( (a[1] === '.' && b === '')|| (a[0] !== '0' && b === '')){
             keyDown(event);
-            } else if ( (b[1] === '.') || (b === '' && sign !== '')) {
+            } else if ( (b[1] === '.') || (b[0] !== '0' && sign !== '')) {
                 keyDown(event);  
                 }
             doKeyActive('.null');
@@ -244,7 +258,10 @@ document.onkeydown = function(event) {
             break;
             case '/':
                 if (sign === '' && a !== '') {sign = event.key;
-                    $calculation.innerText = a + sign;
+                    if (a[a.length-1] === '.') {
+                        $calculation.innerText = a.substring(0, a.length-1) + sign;
+                    } else {
+                $calculation.innerText = a + sign;}  
                 } else if (sign !==''&& b !== '') {doCalculation(sign);
             $answer.innerText = a;
             doTextSize();
@@ -255,7 +272,10 @@ document.onkeydown = function(event) {
             break;
             case '*':
                 if (sign === '' && a !== '') {sign = event.key;
-                    $calculation.innerText = a + sign;
+                    if (a[a.length-1] === '.') {
+                        $calculation.innerText = a.substring(0, a.length-1) + sign;
+                    } else {
+                $calculation.innerText = a + sign;}  
                 } else if (sign !==''&& b !== '') {doCalculation(sign);
             $answer.innerText = a;
             doTextSize();
@@ -266,7 +286,10 @@ document.onkeydown = function(event) {
             break;
             case '-':
                 if (sign === '' && a !== '') {sign = event.key;
-                    $calculation.innerText = a + sign;
+                    if (a[a.length-1] === '.') {
+                        $calculation.innerText = a.substring(0, a.length-1) + sign;
+                    } else {
+                $calculation.innerText = a + sign;}  
                 } else if (sign !==''&& b !== '') {doCalculation(sign);
             $answer.innerText = a;
             doTextSize();
@@ -277,7 +300,10 @@ document.onkeydown = function(event) {
             break;
             case '+':
                 if (sign === '' && a !== '') {sign = event.key;
-                    $calculation.innerText = a + sign;
+                    if (a[a.length-1] === '.') {
+                        $calculation.innerText = a.substring(0, a.length-1) + sign;
+                    } else {
+                $calculation.innerText = a + sign;}  
                 } else if (sign !==''&& b !== '') {doCalculation(sign);
             $answer.innerText = a;
             doTextSize();
